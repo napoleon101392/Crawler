@@ -12,8 +12,10 @@ class CrawlTest extends TestCase
 {
     protected $url;
 
-    public function __construct()
+    public function setUp()
     {
+        parent::setUp();
+
         $this->url = './Page.html';
 
         $this->byPathResult = (new DomFinder)->byPath('/html/body/section/ul/li/a');
