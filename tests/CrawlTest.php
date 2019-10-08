@@ -22,9 +22,19 @@ class CrawlTest extends TestCase
         $document = new DOMDocument($this->url);
 
         $this->assertEquals(
-            $document->getHtml(),
+            $document->html()->get(),
             $this->dummyHtml()
         );
+    }
+
+    /** @test */
+    public function search_by_tag_and_returns_array()
+    {
+        $document = new DOMDocument($this->url);
+
+        $response = count($document->findByClass('anchor')->get());
+
+        $this->assertTrue($response == 2);
     }
 
     /** @test */
@@ -32,9 +42,7 @@ class CrawlTest extends TestCase
     {
         $document = new DOMDocument($this->url);
 
-        $document->setSearch('h3');
-
-        $this->assertEquals('/h3', $document->getTag());
+        $this->assertEquals('/h3', $document->setSearch('h3')->getTag());
     }
 
     private function dummyHtml()

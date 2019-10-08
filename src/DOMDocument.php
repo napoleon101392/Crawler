@@ -21,7 +21,7 @@ class DOMDocument
         $this->setSearch();
     }
 
-    public function getHtml()
+    public function html()
     {
         return $this->getInfo();
     }
@@ -58,12 +58,32 @@ class DOMDocument
             ];
         }
 
+        return $this;
+    }
+
+    public function findByClass($class)
+    {
+        $document = new \DOMDocument;
+        $document->loadHTML(file_get_contents($this->www));
+
+        $xpath = new \DOMXpath($document);
+        $tags = $xpath->query("//*[contains(@class, '$class')]");
+
+        foreach ($tags as $tag) {
+            $this->data[] = $this->getAttribute($tag);
+        }
+
+        return $this;
+    }
+
+    public function get()
+    {
         return $this->data;
     }
 
     private function getAttribute($tag)
     {
-        if (!$tag->hasAttributes()) {
+        if (! $tag->hasAttributes()) {
             return null;
         }
 
