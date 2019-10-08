@@ -2,7 +2,7 @@
 
 namespace Napoleon\Crawler;
 
-class DOMDocument
+class DOMDocument implements \Countable
 {
     protected $www;
 
@@ -19,6 +19,12 @@ class DOMDocument
         $this->www = $www;
 
         $this->setSearch();
+    }
+
+    /** move to base */
+    public function count()
+    {
+        return count($this->data);
     }
 
     public function html()
