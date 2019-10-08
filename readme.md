@@ -136,14 +136,22 @@ print_r($document->findByClass('anchor')->get());
 ```
 The result above
 ```
-[
-  0 => array:2 [
-    "class" => "anchor -success"
-    "href" => "/redirect/now/1"
+.array:2 [
+  0 => array:3 [
+    "tagName" => "a"
+    "attributes" => array:2 [
+      "class" => "anchor -success"
+      "href" => "/redirect/now/1"
+    ]
+    "children" => null
   ]
-  1 => array:2 [
-    "class" => "anchor"
-    "href" => "/redirect/now/2"
+  1 => array:3 [
+    "tagName" => "a"
+    "attributes" => array:2 [
+      "class" => "anchor"
+      "href" => "/redirect/now/2"
+    ]
+    "children" => null
   ]
 ]
 ```

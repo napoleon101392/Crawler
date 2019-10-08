@@ -70,7 +70,11 @@ class DOMDocument
         $tags = $xpath->query("//*[contains(@class, '$class')]");
 
         foreach ($tags as $tag) {
-            $this->data[] = $this->getAttribute($tag);
+            $this->data[] = [
+                'tagName' => $tag->tagName,
+                'attributes' => $this->getAttribute($tag),
+                'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
+            ];
         }
 
         return $this;
