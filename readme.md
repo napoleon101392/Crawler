@@ -1,6 +1,9 @@
 ### Quick example
 
+<p align="center">
 <img src="https://travis-ci.org/napoleon101392/Crawler.svg?branch=master" alt="build:passed">
+<img src="https://scrutinizer-ci.com/g/napoleon101392/Crawler/badges/quality-score.png?b=master" title="Scrutinizer Code Quality">
+</p>
 
 #### this returns the entire DOM
 
