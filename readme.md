@@ -2,7 +2,7 @@
 
 #### this returns the entire DOM
 
-Consider this HTML to be the `$url`
+Consider this HTML to be the `$url`:
 ```
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@ $document = new DOMDocument($url);
 print_r($document->html()->get());
 ```
 
-Above code result
+Above code result:
 ```
 array:1 [
   0 => array:3 [
@@ -107,7 +107,7 @@ array:1 [
 ```
 
 #### Search by specific class name of a tag
-Consider this to be `www.example.com`
+Consider this to be `www.example.com`:
 ```
 <!DOCTYPE html>
 <html>
@@ -134,7 +134,9 @@ $document = new DOMDocument($url);
 print_r($document->findByClass('anchor')->get());
 
 ```
-The result above
+
+
+The result above:
 ```
 .array:2 [
   0 => array:3 [
