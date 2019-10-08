@@ -2,7 +2,7 @@
 
 namespace Napoleon\Crawler\Exceptions;
 
-class DomException extends \Exception
+class DOMException extends \Exception
 {
     public function __construct($message)
     {

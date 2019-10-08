@@ -2,11 +2,8 @@
 
 namespace Tests;
 
-use DOMXpath;
-use DOMDocument;
 use PHPUnit\Framework\TestCase;
-use Napoleon\Crawler\DomFinder;
-use Napoleon\Crawler\Crawler;
+use Napoleon\Crawler\DOMDocument;
 
 class CrawlTest extends TestCase
 {
@@ -17,32 +14,106 @@ class CrawlTest extends TestCase
         parent::setUp();
 
         $this->url = './Page.html';
-
-        $this->byPathResult = (new DomFinder)->byPath('/html/body/section/ul/li/a');
-
-        $this->byClassResult = (new DomFinder)->byClass('anchor'); # " //*[@class='anchor'] "
     }
 
     /** @test */
-    public function find_anchor_tag()
+    public function return_all_tags_and_its_attributes()
     {
-        $dom = Crawler::make($this->byPathResult->path())->to($this->url);
+        $document = new DOMDocument($this->url);
 
-        $this->assertEquals($dom->getContents(), [
-            [
-                'tag' => 'a',
-                'attribute' => [
-                    'class' => 'anchor',
-                    'href' => '/redirect/now/1'
+        $this->assertEquals(
+            $document->getHtml(),
+            $this->dummyHtml()
+        );
+    }
+
+    /** @test */
+    public function tag_path_resolver_test()
+    {
+        $document = new DOMDocument($this->url);
+
+        $document->setSearch('h3');
+
+        $this->assertEquals('/h3', $document->getTag());
+    }
+
+    private function dummyHtml()
+    {
+        $head = [
+            'tagName' => 'head',
+            'attributes' => null,
+            'children' => [
+                [
+                    'tagName' => 'title',
+                    'attributes' => null,
+                    'children' => null
                 ]
-            ],
-            [
-                'tag' => 'a',
-                'attribute' => [
-                    'class' => 'anchor',
-                    'href' => '/redirect/now/2'
+            ]
+        ];
+
+        $body = [
+            'tagName' => 'body',
+            'attributes' => null,
+            'children' => [
+                [
+                    'tagName' => 'section',
+                    'attributes' => null,
+                    'children' => [
+                        [
+                            'tagName' => 'h3',
+                            'attributes' => null,
+                            'children' => null
+                        ],
+                        [
+                            'tagName' => 'ul',
+                            'attributes' => null,
+                            'children' => [
+                                [
+                                    'tagName' => 'li',
+                                    'attributes' => null,
+                                    'children' => [
+                                        [
+                                            'tagName' => 'a',
+                                            'attributes' => [
+                                                'class' => 'anchor -success',
+                                                'href' => '/redirect/now/1'
+                                            ],
+                                            'children' => null
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    'tagName' => 'li',
+                                    'attributes' => null,
+                                    'children' => [
+                                        [
+                                            'tagName' => 'a',
+                                            'attributes' => [
+                                                'class' => 'anchor',
+                                                'href' => '/redirect/now/2'
+                                            ],
+                                            'children' => null
+                                        ]
+                                    ]
+                                ],
+                            ]
+                        ],
+                    ]
                 ]
-            ],
-        ]);
+            ]
+        ];
+
+        $html = [
+            [
+                'tagName' => 'html',
+                'attributes' => null,
+                'children' => [
+                    $head,
+                    $body
+                ]
+            ]
+        ];
+
+        return $html;
     }
 }
