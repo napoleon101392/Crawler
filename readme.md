@@ -1,5 +1,7 @@
 ### Quick example
 
+<img src="https://travis-ci.org/napoleon101392/Crawler.svg?branch=master" alt="build:passed">
+
 #### this returns the entire DOM
 
 Consider this HTML to be the `$url`:
