@@ -93,7 +93,7 @@ class DOMDocument implements \Countable
 
     private function getAttribute($tag)
     {
-        if (! $tag->hasAttributes()) {
+        if ( ! $tag->hasAttributes()) {
             return null;
         }
 
@@ -113,7 +113,7 @@ class DOMDocument implements \Countable
 
     private function getChildren($tag)
     {
-        if (!$tag->hasChildNodes()) {
+        if ( ! $tag->hasChildNodes()) {
             return null;
         }
 
