@@ -78,7 +78,7 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
-                'content' => ! is_null($this->getContent($tag)) ?? $this->getContent($tag) : '',
+                'content' => ! is_null($this->getContent($tag)) ? $this->getContent($tag) : '',
                 'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
             ];
         }
