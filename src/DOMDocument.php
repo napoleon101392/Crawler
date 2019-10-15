@@ -118,7 +118,7 @@ class DOMDocument
         $return = [];
         foreach ($tag->attributes as $attribute) {
             foreach ($attribute->childNodes as $attribute_data) {
-                if (count($attribute_data) > 1) {
+                if (is_array($attribute_data) && count($attribute_data) > 1) {
                     $return[$attribute->localName][] = $attribute_data->data;
                 }
 
