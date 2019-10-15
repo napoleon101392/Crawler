@@ -118,8 +118,7 @@ class DOMDocument
 
             return trim(preg_replace('/\n/', '', $content));
         } catch (\Exception $e) {
-
-            return null;
+            return '';
         }
     }
 
