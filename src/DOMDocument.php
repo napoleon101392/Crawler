@@ -2,11 +2,11 @@
 
 namespace Napoleon\Crawler;
 
-class DOMDocument implements \Countable
+use Napoleon\Crawler\Exceptions\DOMNotFoundException;
+
+class DOMDocument
 {
     protected $www;
-
-    protected $document;
 
     protected $data;
 
@@ -16,15 +16,33 @@ class DOMDocument implements \Countable
     {
         libxml_use_internal_errors(true);
 
-        $this->www = $www;
+        $this->validate($www);
 
         $this->setSearch();
     }
 
-    /** move to base */
-    public function count()
+    /**
+     * Validate and parse the passing url
+     *
+     * @param  string $www File path or Url should be pass
+     *
+     * @return void
+     */
+    protected function validate($www)
     {
-        return count($this->data);
+        if (filter_var($www, FILTER_VALIDATE_URL)) {
+            $this->www = file_get_contents($www);
+
+            return;
+        }
+
+        if (file_exists($www)) {
+            $this->www = file_get_contents($www);
+
+            return;
+        }
+
+        throw new DOMNotFoundException;
     }
 
     public function html()
@@ -51,7 +69,7 @@ class DOMDocument implements \Countable
     protected function getInfo()
     {
         $document = new \DOMDocument;
-        $document->loadHTML(file_get_contents($this->www));
+        $document->loadHTML($this->www);
 
         $xpath = new \DOMXpath($document);
         $tags = $xpath->evaluate($this->tag);
@@ -70,7 +88,7 @@ class DOMDocument implements \Countable
     public function findByClass($class)
     {
         $document = new \DOMDocument;
-        $document->loadHTML(file_get_contents($this->www));
+        $document->loadHTML($this->www);
 
         $xpath = new \DOMXpath($document);
         $tags = $xpath->query("//*[contains(@class, '$class')]");

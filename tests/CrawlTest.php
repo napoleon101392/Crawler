@@ -4,6 +4,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Napoleon\Crawler\DOMDocument;
+use Napoleon\Crawler\Exceptions\DOMNotFoundException;
 
 class CrawlTest extends TestCase
 {
@@ -21,10 +22,46 @@ class CrawlTest extends TestCase
     {
         $document = new DOMDocument($this->url);
 
-        $this->assertEquals(
-            $document->html()->get(),
-            $this->dummyHtml()
-        );
+        $comparison = $document->html()->get();
+
+        $this->assertEquals($comparison, $this->dummyHtml());
+    }
+
+    /** @test */
+    public function valid_file()
+    {
+        $url = './Page.html';
+
+        $document = new DOMDocument($url);
+
+        $comparison = $document->html()->get();
+
+        $this->assertTrue(is_array($comparison));
+        $this->assertEquals($comparison, $this->dummyHtml());
+    }
+
+    /** @test */
+    public function valid_url()
+    {
+        $url = 'https://www.google.com';
+
+        $document = new DOMDocument($url);
+
+        $comparison = $document->html()->get();
+
+        $this->assertTrue(is_array($comparison));
+        $this->assertNotEquals($comparison, $this->dummyHtml());
+    }
+
+    /** @test */
+    public function not_a_valid_url_and_file()
+    {
+        $this->expectException(DOMNotFoundException::class);
+
+        $url = 'www.google.com';
+
+        $document = new DOMDocument($url);
+        $document->html()->get();
     }
 
     /** @test */

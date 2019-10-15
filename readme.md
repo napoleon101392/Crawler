@@ -30,7 +30,7 @@ Consider this HTML to be the `$url`:
 ```
 use Napoleon\Crawler\DOMDocument;
 
-$url = 'www.example.com';
+$url = 'https://www.example.com';
 $document = new DOMDocument($url);
 
 print_r($document->html()->get());
@@ -112,7 +112,7 @@ array:1 [
 ```
 
 #### Search by specific class name of a tag
-Consider this to be `www.example.com`:
+Consider this to be `https://www.example.com`:
 ```
 <!DOCTYPE html>
 <html>
@@ -134,7 +134,7 @@ Consider this to be `www.example.com`:
 ```
 use Napoleon\Crawler\DOMDocument;
 
-$url = 'www.example.com';
+$url = 'https://www.example.com';
 $document = new DOMDocument($url);
 print_r($document->findByClass('anchor')->get());
 
