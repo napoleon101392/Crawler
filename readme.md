@@ -39,62 +39,73 @@ print_r($document->html()->get());
 Above code result:
 ```
 array:1 [
-  0 => array:3 [
+  0 => array:4 [
     "tagName" => "html"
     "attributes" => null
+    "content" => ""
     "children" => array:2 [
-      0 => array:3 [
+      0 => array:4 [
         "tagName" => "head"
         "attributes" => null
+        "content" => ""
         "children" => array:1 [
-          0 => array:3 [
+          0 => array:4 [
             "tagName" => "title"
             "attributes" => null
+            "content" => "I am a Page Title"
             "children" => null
           ]
         ]
       ]
-      1 => array:3 [
+      1 => array:4 [
         "tagName" => "body"
         "attributes" => null
+        "content" => ""
         "children" => array:1 [
-          0 => array:3 [
+          0 => array:4 [
             "tagName" => "section"
             "attributes" => null
+            "content" => ""
             "children" => array:2 [
-              0 => array:3 [
+              0 => array:4 [
                 "tagName" => "h3"
                 "attributes" => null
+                "content" => "I am a row title"
                 "children" => null
               ]
-              1 => array:3 [
+              1 => array:4 [
                 "tagName" => "ul"
                 "attributes" => null
+                "content" => ""
                 "children" => array:2 [
-                  0 => array:3 [
+                  0 => array:4 [
                     "tagName" => "li"
                     "attributes" => null
+                    "content" => ""
                     "children" => array:1 [
-                      0 => array:3 [
+                      0 => array:4 [
                         "tagName" => "a"
                         "attributes" => array:2 [
                           "class" => "anchor -success"
                           "href" => "/redirect/now/1"
                         ]
+                        "content" => "Link 1"
                         "children" => null
                       ]
                     ]
                   ]
-                  1 => array:3 [
+                  1 => array:4 [
                     "tagName" => "li"
                     "attributes" => null
+                    "content" => ""
                     "children" => array:1 [
-                      0 => array:3 [
+                      0 => array:4 [
                         "tagName" => "a"
                         "attributes" => array:2 [
                           "class" => "anchor"
                           "href" => "/redirect/now/2"
                         ]
+                        "content" => "Link 2"
                         "children" => null
                       ]
                     ]
@@ -149,7 +160,8 @@ The result above:
     "attributes" => array:2 [
       "class" => "anchor -success"
       "href" => "/redirect/now/1"
-    ]
+    ],
+    "content" => "Link 1",
     "children" => null
   ]
   1 => array:3 [
@@ -157,7 +169,8 @@ The result above:
     "attributes" => array:2 [
       "class" => "anchor"
       "href" => "/redirect/now/2"
-    ]
+    ],
+    "content" => "Link 2",
     "children" => null
   ]
 ]
