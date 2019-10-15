@@ -78,7 +78,7 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
-                'content' => $this->getContent($tag),
+                'content' => ! is_null($this->getContent($tag)) ? $this->getContent($tag) : '',
                 'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
             ];
         }
@@ -98,7 +98,7 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
-                'content' => $this->getContent($tag),
+                'content' => ! is_null($this->getContent($tag)) ? $this->getContent($tag) : '',
                 'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
             ];
         }
@@ -113,13 +113,13 @@ class DOMDocument
      */
     protected function getContent($tag)
     {
-        try {
+        if ( ! is_null($tag->childNodes->item(0))) {
             $content = preg_replace('{ +}', ' ', $tag->childNodes->item(0)->textContent);
 
             return trim(preg_replace('/\n/', '', $content));
-        } catch (\Exception $e) {
-            dump($e);
         }
+
+        return null;
     }
 
     public function get()
@@ -159,7 +159,7 @@ class DOMDocument
                 $data[] = [
                     'tagName' => $child->tagName,
                     'attributes' => $this->getAttribute($child),
-                    'content' => $this->getContent($child),
+                    'content' => ! is_null($this->getContent($child)) ? $this->getContent($child) : '',
                     'children' => ! empty($this->getChildren($child)) ? $this->getChildren($child) : null
                 ];
             }
