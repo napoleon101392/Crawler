@@ -113,6 +113,7 @@ class DOMDocument
      */
     protected function getContent($tag)
     {
+        dump(!is_null($tag->childNodes->item(0)), $tag->childNodes->item(0));
         if ( ! is_null($tag->childNodes->item(0))) {
             $content = preg_replace('{ +}', ' ', $tag->childNodes->item(0)->textContent);
 
