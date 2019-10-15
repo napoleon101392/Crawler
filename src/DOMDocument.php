@@ -114,7 +114,7 @@ class DOMDocument
     protected function getContent($tag)
     {
         try {
-            $content = preg_replace('/ +/', ' ', $tag->childNodes->item(0)->textContent);
+            $content = preg_replace('/\ +/', ' ', $tag->childNodes->item(0)->textContent);
 
             return trim(preg_replace('/\n/', '', $content));
         } catch (\Exception $e) {
