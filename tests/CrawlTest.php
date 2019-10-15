@@ -87,10 +87,12 @@ class CrawlTest extends TestCase
         $head = [
             'tagName' => 'head',
             'attributes' => null,
+            'content' => '',
             'children' => [
                 [
                     'tagName' => 'title',
                     'attributes' => null,
+                    'content' => 'I am a Page Title',
                     'children' => null
                 ]
             ]
@@ -99,23 +101,28 @@ class CrawlTest extends TestCase
         $body = [
             'tagName' => 'body',
             'attributes' => null,
+            'content' => '',
             'children' => [
                 [
                     'tagName' => 'section',
                     'attributes' => null,
+                    'content' => '',
                     'children' => [
                         [
                             'tagName' => 'h3',
                             'attributes' => null,
+                            'content' => 'I am a row title',
                             'children' => null
                         ],
                         [
                             'tagName' => 'ul',
                             'attributes' => null,
+                            'content' => '',
                             'children' => [
                                 [
                                     'tagName' => 'li',
                                     'attributes' => null,
+                                    'content' => '',
                                     'children' => [
                                         [
                                             'tagName' => 'a',
@@ -123,6 +130,7 @@ class CrawlTest extends TestCase
                                                 'class' => 'anchor -success',
                                                 'href' => '/redirect/now/1'
                                             ],
+                                            'content' => 'Link 1',
                                             'children' => null
                                         ]
                                     ]
@@ -130,6 +138,7 @@ class CrawlTest extends TestCase
                                 [
                                     'tagName' => 'li',
                                     'attributes' => null,
+                                    'content' => '',
                                     'children' => [
                                         [
                                             'tagName' => 'a',
@@ -137,6 +146,7 @@ class CrawlTest extends TestCase
                                                 'class' => 'anchor',
                                                 'href' => '/redirect/now/2'
                                             ],
+                                            'content' => 'Link 2',
                                             'children' => null
                                         ]
                                     ]
@@ -152,6 +162,7 @@ class CrawlTest extends TestCase
             [
                 'tagName' => 'html',
                 'attributes' => null,
+                'content' => '',
                 'children' => [
                     $head,
                     $body

@@ -78,7 +78,8 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
-                'children' => $this->getChildren($tag)
+                'content' => $this->getContent($tag),
+                'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
             ];
         }
 
@@ -97,11 +98,29 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
+                'content' => $this->getContent($tag),
                 'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
             ];
         }
 
         return $this;
+    }
+
+    /**
+     * get content for specific tag only
+     *
+     * @return [type] [description]
+     */
+    protected function getContent($tag)
+    {
+        try {
+            $content = ereg_replace(' +', ' ', $tag->childNodes->item(0)->textContent);
+
+            return trim(preg_replace('/\n/', '', $content));
+        } catch (\Exception $e) {
+
+            return null;
+        }
     }
 
     public function get()
@@ -141,6 +160,7 @@ class DOMDocument
                 $data[] = [
                     'tagName' => $child->tagName,
                     'attributes' => $this->getAttribute($child),
+                    'content' => $this->getContent($child),
                     'children' => ! empty($this->getChildren($child)) ? $this->getChildren($child) : null
                 ];
             }
