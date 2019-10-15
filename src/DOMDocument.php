@@ -113,9 +113,11 @@ class DOMDocument
      */
     protected function getContent($tag)
     {
-        if ($content = preg_replace('{ +}', ' ', $tag->childNodes->item(0)->textContent)) {
+        if ( ! is_null($tag->childNodes->item(0))) {
+            $content = preg_replace('{ +}', ' ', $tag->childNodes->item(0)->textContent)
+
             return trim(preg_replace('/\n/', '', $content));
-        };
+        }
 
         return null;
     }
