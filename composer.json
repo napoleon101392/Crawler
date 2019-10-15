@@ -1,7 +1,7 @@
 {
     "name": "napoleon/crawl",
     "type": "library",
-    "description": "PHP reads html tags and converts",
+    "description": "HTML Crawler",
     "license": "MIT",
     "keywords": [
         "php",
@@ -12,7 +12,7 @@
     ],
     "authors": [{"name": "napoleon", "email": "napoleon101392@gmail.com"}],
     "require": {
-        "php": ">=7.1"
+        "php": "^7.1"
     },
     "require-dev": {
         "phpunit/phpunit": "5.7",
