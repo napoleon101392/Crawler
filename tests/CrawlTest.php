@@ -24,9 +24,20 @@ class CrawlTest extends TestCase
 
         $comparison = $document->html()->get();
 
-        dump($comparison);
-
         $this->assertEquals($comparison, $this->dummyHtml());
+    }
+
+    /** @test */
+    public function it_modify_the_entire_dom()
+    {
+        $document = new DOMDocument($this->url);
+
+        $condition = $document->html(function ($dom) {
+            return 'test';
+        })->get();
+
+        $this->assertTrue(is_array($condition));
+        $this->assertEquals($condition, $this->defaultHtml());
     }
 
     /** @test */
@@ -43,24 +54,11 @@ class CrawlTest extends TestCase
     }
 
     /** @test */
-    public function valid_url()
-    {
-        $url = 'https://www.google.com';
-
-        $document = new DOMDocument($url);
-
-        $comparison = $document->html()->get();
-
-        $this->assertTrue(is_array($comparison));
-        $this->assertNotEquals($comparison, $this->dummyHtml());
-    }
-
-    /** @test */
     public function not_a_valid_url_and_file()
     {
         $this->expectException(DOMNotFoundException::class);
 
-        $url = 'www.google.com';
+        $url = 'something';
 
         $document = new DOMDocument($url);
         $document->html()->get();
@@ -82,6 +80,32 @@ class CrawlTest extends TestCase
         $document = new DOMDocument($this->url);
 
         $this->assertEquals('/h3', $document->setSearch('h3')->getTag());
+    }
+
+    private function defaultHtml()
+    {
+        return [
+            [
+                'tagName' => 'html',
+                'attributes' => null,
+                'content' => 'test',
+                'children' => [
+                    [
+                        'tagName' => 'body',
+                        'attributes' => null,
+                        'content' => 'test',
+                        "children" => [
+                            [
+                                "tagName" => "p",
+                                "attributes" => null,
+                                "content" => "test",
+                                "children" => null
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
     }
 
     private function dummyHtml()

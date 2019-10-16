@@ -45,8 +45,19 @@ class DOMDocument
         throw new DOMNotFoundException;
     }
 
-    public function html()
+    /**
+     * [html description]
+     *
+     * @param  \Closure $func Optional,
+     *
+     * @return self
+     */
+    public function html($func = null): self
     {
+        if (is_callable($func)) {
+            $this->www = call_user_func($func, $this->www);
+        }
+
         return $this->getInfo();
     }
 
