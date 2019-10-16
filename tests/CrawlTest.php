@@ -24,6 +24,11 @@ class CrawlTest extends TestCase
 
         $comparison = $document->html()->get();
 
+        dump([
+            'Result: ' => $comparison,
+            'Expectation' => $this->dummyHtml()
+        ]);
+
         $this->assertEquals($comparison, $this->dummyHtml());
     }
 
