@@ -1,14 +1,9 @@
-<p align="center">
-  <img src="https://travis-ci.org/napoleon101392/Crawler.svg?branch=master" alt="build:passed">
-  <img src="https://scrutinizer-ci.com/g/napoleon101392/Crawler/badges/quality-score.png?b=master" title="Scrutinizer Code Quality">
-</p>
+<img src="https://scrutinizer-ci.com/g/napoleon101392/Crawler/badges/quality-score.png?b=master" title="Scrutinizer Code Quality">
 
 ### Quick example
 
-#### this returns the entire DOM
-
 Consider this HTML to be the `$url`:
-```
+``` html
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +22,7 @@ Consider this HTML to be the `$url`:
 </html>
 ```
 
-```
+``` php
 use Napoleon\Crawler\DOMDocument;
 
 $url = 'https://www.example.com';
@@ -37,7 +32,7 @@ print_r($document->html()->get());
 ```
 
 Above code result:
-```
+``` php
 array:1 [
   0 => array:4 [
     "tagName" => "html"
@@ -124,7 +119,7 @@ array:1 [
 
 #### Search by specific class name of a tag
 Consider this to be `https://www.example.com`:
-```
+``` html
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,7 +137,7 @@ Consider this to be `https://www.example.com`:
 </body>
 </html>
 ```
-```
+``` php
 use Napoleon\Crawler\DOMDocument;
 
 $url = 'https://www.example.com';
@@ -153,7 +148,7 @@ print_r($document->findByClass('anchor')->get());
 
 
 The result above:
-```
+``` php
 .array:2 [
   0 => array:3 [
     "tagName" => "a"

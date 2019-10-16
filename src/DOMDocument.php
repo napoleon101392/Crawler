@@ -6,18 +6,27 @@ use Napoleon\Crawler\Exceptions\DOMNotFoundException;
 
 class DOMDocument
 {
+    /** @var string $www URL | Path */
     protected $www;
 
+    /** @var array $data Return the result */
     protected $data;
 
+    /** @var string $tag Current tag to be search */
     protected $tag;
 
+    /**
+     * validates and execute the default values
+     *
+     * @param string $www file path or link
+     */
     public function __construct($www = '')
     {
         libxml_use_internal_errors(true);
 
         $this->validate($www);
 
+        /** by default: returns /html tag */
         $this->setSearch();
     }
 
@@ -26,7 +35,7 @@ class DOMDocument
      *
      * @param  string $www File path or Url should be pass
      *
-     * @return void
+     * @return void | \Napoleon\Crawler\Exceptions\DOMNotFoundException
      */
     protected function validate($www)
     {
@@ -61,6 +70,11 @@ class DOMDocument
         return $this->getInfo();
     }
 
+    /**
+     * [setSearch description]
+     *
+     * @param string $tag [description]
+     */
     public function setSearch($tag = '/html')
     {
         if ($tag[0] != '/') {
@@ -72,11 +86,21 @@ class DOMDocument
         return $this;
     }
 
-    public function getTag()
+    /**
+     * The tag to be search
+     *
+     * @return string
+     */
+    public function getTag(): string
     {
         return $this->tag;
     }
 
+    /**
+     * Top level nodes
+     *
+     * @return this
+     */
     protected function getInfo()
     {
         $document = new \DOMDocument;
@@ -97,6 +121,12 @@ class DOMDocument
         return $this;
     }
 
+    /**
+     * Set the crawl to search by class name
+     *
+     * @param  string $class Class name of a tag
+     * @return this
+     */
     public function findByClass($class)
     {
         $document = new \DOMDocument;
@@ -109,8 +139,8 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
-                'content' => ! is_null($this->getContent($tag)) ? $this->getContent($tag) : '',
-                'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
+                'content' => $this->getContent($tag) ?? null,
+                'children' => $this->getChildren($tag) ?? null
             ];
         }
 
@@ -133,11 +163,22 @@ class DOMDocument
         return null;
     }
 
+    /**
+     * Display the result to be array
+     *
+     * @return array
+     */
     public function get()
     {
         return $this->data;
     }
 
+    /**
+     * Helper to get the attribute of a tag
+     *
+     * @param  Object $tag
+     * @return array
+     */
     private function getAttribute($tag)
     {
         if ( ! $tag->hasAttributes()) {
@@ -158,6 +199,12 @@ class DOMDocument
         return $return;
     }
 
+    /**
+     * Helper to get the child nodes of a tag
+     *
+     * @param  Object $tag
+     * @return array
+     */
     private function getChildren($tag)
     {
         if ( ! $tag->hasChildNodes()) {
