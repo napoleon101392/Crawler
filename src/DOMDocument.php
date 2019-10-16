@@ -45,8 +45,19 @@ class DOMDocument
         throw new DOMNotFoundException;
     }
 
-    public function html()
+    /**
+     * [html description]
+     *
+     * @param  \Closure $func Optional,
+     *
+     * @return self
+     */
+    public function html($func = null): self
     {
+        if (is_callable($func)) {
+            $this->www = call_user_func($func, $this->www);
+        }
+
         return $this->getInfo();
     }
 
@@ -78,8 +89,8 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
-                'content' => ! is_null($this->getContent($tag)) ? $this->getContent($tag) : '',
-                'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
+                'content' => $this->getContent($tag) ?? null,
+                'children' => $this->getChildren($tag) ?? null
             ];
         }
 
@@ -113,7 +124,7 @@ class DOMDocument
      */
     protected function getContent($tag)
     {
-        if ( ! is_null($tag->childNodes->item(0))) {
+        if ($tag->hasChildNodes()) {
             $content = preg_replace('{ +}', ' ', $tag->childNodes->item(0)->textContent);
 
             return trim(preg_replace('/\n/', '', $content));
@@ -154,13 +165,13 @@ class DOMDocument
         }
 
         $data = [];
-        foreach ($tag->childNodes as $child) {
-            if (isset($child->tagName)) {
+        foreach ($tag->childNodes as $tag) {
+            if (isset($tag->tagName)) {
                 $data[] = [
-                    'tagName' => $child->tagName,
-                    'attributes' => $this->getAttribute($child),
-                    'content' => ! is_null($this->getContent($child)) ? $this->getContent($child) : '',
-                    'children' => ! empty($this->getChildren($child)) ? $this->getChildren($child) : null
+                    'tagName' => $tag->tagName,
+                    'attributes' => $this->getAttribute($tag),
+                    'content' => $this->getContent($tag) ?? null,
+                    'children' => $this->getChildren($tag) ?? null
                 ];
             }
 

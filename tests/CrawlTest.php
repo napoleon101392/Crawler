@@ -28,6 +28,19 @@ class CrawlTest extends TestCase
     }
 
     /** @test */
+    public function it_modify_the_entire_dom()
+    {
+        $document = new DOMDocument($this->url);
+
+        $condition = $document->html(function ($dom) {
+            return 'test';
+        })->get();
+
+        $this->assertTrue(is_array($condition));
+        $this->assertEquals($condition, $this->defaultHtml());
+    }
+
+    /** @test */
     public function valid_file()
     {
         $url = './Page.html';
@@ -41,24 +54,11 @@ class CrawlTest extends TestCase
     }
 
     /** @test */
-    public function valid_url()
-    {
-        $url = 'https://www.google.com';
-
-        $document = new DOMDocument($url);
-
-        $comparison = $document->html()->get();
-
-        $this->assertTrue(is_array($comparison));
-        $this->assertNotEquals($comparison, $this->dummyHtml());
-    }
-
-    /** @test */
     public function not_a_valid_url_and_file()
     {
         $this->expectException(DOMNotFoundException::class);
 
-        $url = 'www.google.com';
+        $url = 'something';
 
         $document = new DOMDocument($url);
         $document->html()->get();
@@ -82,6 +82,32 @@ class CrawlTest extends TestCase
         $this->assertEquals('/h3', $document->setSearch('h3')->getTag());
     }
 
+    private function defaultHtml()
+    {
+        return [
+            [
+                'tagName' => 'html',
+                'attributes' => null,
+                'content' => 'test',
+                'children' => [
+                    [
+                        'tagName' => 'body',
+                        'attributes' => null,
+                        'content' => 'test',
+                        "children" => [
+                            [
+                                "tagName" => "p",
+                                "attributes" => null,
+                                "content" => "test",
+                                "children" => []
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+    }
+
     private function dummyHtml()
     {
         $head = [
@@ -93,7 +119,7 @@ class CrawlTest extends TestCase
                     'tagName' => 'title',
                     'attributes' => null,
                     'content' => 'I am a Page Title',
-                    'children' => null
+                    'children' => []
                 ]
             ]
         ];
@@ -112,7 +138,7 @@ class CrawlTest extends TestCase
                             'tagName' => 'h3',
                             'attributes' => null,
                             'content' => 'I am a row title',
-                            'children' => null
+                            'children' => []
                         ],
                         [
                             'tagName' => 'ul',
@@ -131,7 +157,7 @@ class CrawlTest extends TestCase
                                                 'href' => '/redirect/now/1'
                                             ],
                                             'content' => 'Link 1',
-                                            'children' => null
+                                            'children' => []
                                         ]
                                     ]
                                 ],
@@ -147,7 +173,7 @@ class CrawlTest extends TestCase
                                                 'href' => '/redirect/now/2'
                                             ],
                                             'content' => 'Link 2',
-                                            'children' => null
+                                            'children' => []
                                         ]
                                     ]
                                 ],
