@@ -89,8 +89,8 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
-                'content' => ! is_null($this->getContent($tag)) ?? $this->getContent($tag),
-                'children' => ! empty($this->getChildren($tag)) ?? $this->getChildren($tag)
+                'content' => $this->getContent($tag) ?? null,
+                'children' => $this->getChildren($tag) ?? null
             ];
         }
 
@@ -170,8 +170,8 @@ class DOMDocument
                 $data[] = [
                     'tagName' => $tag->tagName,
                     'attributes' => $this->getAttribute($tag),
-                    'content' => ! is_null($this->getContent($tag)) ?? $this->getContent($tag),
-                    'children' => ! empty($this->getChildren($tag)) ?? $this->getChildren($tag)
+                    'content' => $this->getContent($tag) ?? null,
+                    'children' => $this->getChildren($tag) ?? null
                 ];
             }
 

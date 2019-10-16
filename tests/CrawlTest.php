@@ -24,11 +24,6 @@ class CrawlTest extends TestCase
 
         $comparison = $document->html()->get();
 
-        dump([
-            'Result: ' => $comparison,
-            'Expectation' => $this->dummyHtml()
-        ]);
-
         $this->assertEquals($comparison, $this->dummyHtml());
     }
 
@@ -104,7 +99,7 @@ class CrawlTest extends TestCase
                                 "tagName" => "p",
                                 "attributes" => null,
                                 "content" => "test",
-                                "children" => null
+                                "children" => []
                             ]
                         ]
                     ]
@@ -124,7 +119,7 @@ class CrawlTest extends TestCase
                     'tagName' => 'title',
                     'attributes' => null,
                     'content' => 'I am a Page Title',
-                    'children' => null
+                    'children' => []
                 ]
             ]
         ];
@@ -143,7 +138,7 @@ class CrawlTest extends TestCase
                             'tagName' => 'h3',
                             'attributes' => null,
                             'content' => 'I am a row title',
-                            'children' => null
+                            'children' => []
                         ],
                         [
                             'tagName' => 'ul',
@@ -162,7 +157,7 @@ class CrawlTest extends TestCase
                                                 'href' => '/redirect/now/1'
                                             ],
                                             'content' => 'Link 1',
-                                            'children' => null
+                                            'children' => []
                                         ]
                                     ]
                                 ],
@@ -178,7 +173,7 @@ class CrawlTest extends TestCase
                                                 'href' => '/redirect/now/2'
                                             ],
                                             'content' => 'Link 2',
-                                            'children' => null
+                                            'children' => []
                                         ]
                                     ]
                                 ],
