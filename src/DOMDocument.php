@@ -89,8 +89,8 @@ class DOMDocument
             $this->data[] = [
                 'tagName' => $tag->tagName,
                 'attributes' => $this->getAttribute($tag),
-                'content' => ! is_null($this->getContent($tag)) ? $this->getContent($tag) : '',
-                'children' => ! empty($this->getChildren($tag)) ? $this->getChildren($tag) : null
+                'content' => ! is_null($this->getContent($tag)) ?? $this->getContent($tag),
+                'children' => ! empty($this->getChildren($tag)) ?? $this->getChildren($tag)
             ];
         }
 
@@ -165,13 +165,13 @@ class DOMDocument
         }
 
         $data = [];
-        foreach ($tag->childNodes as $child) {
-            if (isset($child->tagName)) {
+        foreach ($tag->childNodes as $tag) {
+            if (isset($tag->tagName)) {
                 $data[] = [
-                    'tagName' => $child->tagName,
-                    'attributes' => $this->getAttribute($child),
-                    'content' => ! is_null($this->getContent($child)) ? $this->getContent($child) : '',
-                    'children' => ! empty($this->getChildren($child)) ? $this->getChildren($child) : null
+                    'tagName' => $tag->tagName,
+                    'attributes' => $this->getAttribute($tag),
+                    'content' => ! is_null($this->getContent($tag)) ?? $this->getContent($tag),
+                    'children' => ! empty($this->getChildren($tag)) ?? $this->getChildren($tag)
                 ];
             }
 

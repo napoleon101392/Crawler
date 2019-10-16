@@ -15,6 +15,7 @@ RUN apt-get update -y && \
     git \
     cron \
     openssl \
+    openssh-server \
     apt-utils \
     lynx-common \
     php-xdebug \
