@@ -148,6 +148,21 @@ class DOMDocument
     }
 
     /**
+     * accessing the dom
+     *
+     * @param  \Closure $func Optional,
+     * @return this
+     */
+    public function accessDom($func = null)
+    {
+        if (is_callable($func)) {
+            $this->www = call_user_func($func, $this->www);
+        }
+
+        return $this;
+    }
+
+    /**
      * get content for specific tag only
      *
      * @return [type] [description]
@@ -157,7 +172,7 @@ class DOMDocument
         if ($tag->hasChildNodes()) {
             $content = preg_replace('{ +}', ' ', $tag->childNodes->item(0)->textContent);
 
-            return trim(preg_replace('/\n/', '', $content));
+            return trim(preg_replace('/(\n|\t|\r|<br( )?(\/)?>)/', '', $content));
         }
 
         return null;
